@@ -58,14 +58,21 @@ namespace Acquaint.Native.Droid
 					if (async)
 						((Activity)parentView.Context).RunOnUiThread(async () => 
 						{
-							await ImageService
-								.Instance
-								.LoadUrl(imageUrl, TimeSpan.FromHours(Settings.ImageCacheDurationHours))
-								.LoadingPlaceholder("placeholderProfileImage.png")
-								.Transform(new CircleTransformation())
-								.Error(e => System.Diagnostics.Debug.WriteLine(e.Message))
-								.IntoAsync(imageView);
-						});
+                            try
+                            {
+                                await ImageService
+                                    .Instance
+                                    .LoadUrl(imageUrl, TimeSpan.FromHours(Settings.ImageCacheDurationHours))
+                                    .LoadingPlaceholder("placeholderProfileImage.png", FFImageLoading.Work.ImageSource.CompiledResource)
+                                    .Transform(new CircleTransformation())
+                                    .Error(e => System.Diagnostics.Debug.WriteLine(e.Message))
+                                    .IntoAsync(imageView);
+                            }
+                            catch
+                            {
+
+                            }
+                        });
 					else
 						ImageService.Instance.LoadUrl(imageUrl).Transform(new CircleTransformation()).Into(imageView);
 				}

@@ -96,7 +96,21 @@ namespace Acquaint.Native.iOS
 					NavigationController.PopViewController(true);
 				}
 			};
-		}
+
+            _FirstNameField.AccessibilityIdentifier = nameof(_FirstNameField);
+            _LastNameField.AccessibilityIdentifier = nameof(_LastNameField);
+            _CompanyNameField.AccessibilityIdentifier = nameof(_CompanyNameField);
+            _JobTitleField.AccessibilityIdentifier = nameof(_JobTitleField);
+            _PhoneNumberField.AccessibilityIdentifier = nameof(_PhoneNumberField);
+            _EmailAddressField.AccessibilityIdentifier = nameof(_EmailAddressField);
+            _StreetField.AccessibilityIdentifier = nameof(_StreetField);
+            _CityField.AccessibilityIdentifier = nameof(_CityField);
+            _StateField.AccessibilityIdentifier = nameof(_StateField);
+            _ZipField.AccessibilityIdentifier = nameof(_ZipField);
+
+            NavigationItem.RightBarButtonItem.AccessibilityIdentifier = "Save";
+
+        }
 
 		bool RequiredAddressFieldCombinationIsFilled
 		{

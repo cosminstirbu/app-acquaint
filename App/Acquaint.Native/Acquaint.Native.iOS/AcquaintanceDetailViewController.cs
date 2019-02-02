@@ -63,16 +63,22 @@ namespace Acquaint.Native.iOS
 				SetupDialNumberAction();
 				SetupSendEmailAction();
 
-				 // use FFImageLoading library to asynchronously:
-				await ImageService
-					.Instance
-					.LoadUrl(Acquaintance.PhotoUrl, TimeSpan.FromHours(Settings.ImageCacheDurationHours)) 					// get the image from a URL
-					.LoadingPlaceholder("placeholderProfileImage.png") 	// specify a placeholder image
-					.Transform(new CircleTransformation()) 				// transform the image to a circle
-					.Error(e => System.Diagnostics.Debug.WriteLine(e.Message))
-					.IntoAsync(ProfilePhotoImageView); 					// load the image into the UIImageView
+                try
+                {
+                    // use FFImageLoading library to asynchronously:
+                    await ImageService
+                        .Instance
+                        .LoadUrl(Acquaintance.PhotoUrl, TimeSpan.FromHours(Settings.ImageCacheDurationHours))                   // get the image from a URL
+                        .LoadingPlaceholder("placeholderProfileImage.png")  // specify a placeholder image
+                        .Transform(new CircleTransformation())              // transform the image to a circle
+                        .Error(e => System.Diagnostics.Debug.WriteLine(e.Message))
+                        .IntoAsync(ProfilePhotoImageView);                  // load the image into the UIImageView
+                }
+                catch
+                {
+                }
 
-				try
+                try
 				{
 					// asynchronously geocode the address
 					var locations = await _Geocoder.GeocodeAddressAsync(Acquaintance.AddressString);
@@ -129,6 +135,8 @@ namespace Acquaint.Native.iOS
 			DeleteBarButtonItem = NavigationItem.RightBarButtonItems[1];
 
 			DeleteBarButtonItem.Clicked += DeleteBarButtonItemClicked;
+
+            NavigationItem.RightBarButtonItems[0].AccessibilityIdentifier = "Edit";
 		}
 
 		void DeleteBarButtonItemClicked(object sender, EventArgs ea)

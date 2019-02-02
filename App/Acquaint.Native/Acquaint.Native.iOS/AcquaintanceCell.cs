@@ -17,11 +17,21 @@ namespace Acquaint.Native.iOS
 		// This constructor signature is required, for marshalling between the managed and native instances of this class.
 		public AcquaintanceCell(IntPtr handle) : base(handle) { }
 
-		/// <summary>
-		/// Update the cell's child views' values and presentation.
-		/// </summary>
-		/// <param name="acquaintance">Acquaintance.</param>
-		public void Update(Acquaintance acquaintance)
+        public override void AwakeFromNib()
+        {
+            base.AwakeFromNib();
+
+            AccessibilityIdentifier = nameof(AcquaintanceCell);
+            NameLabel.AccessibilityIdentifier = nameof(NameLabel);
+            CompanyLabel.AccessibilityIdentifier = nameof(CompanyLabel);
+            JobTitleLabel.AccessibilityIdentifier = nameof(JobTitleLabel);
+        }
+
+        /// <summary>
+        /// Update the cell's child views' values and presentation.
+        /// </summary>
+        /// <param name="acquaintance">Acquaintance.</param>
+        public void Update(Acquaintance acquaintance)
 		{
 			// set disclousure indicator accessory for the cell
 			Accessory = UITableViewCellAccessory.DisclosureIndicator;
@@ -30,16 +40,23 @@ namespace Acquaint.Native.iOS
 			CompanyLabel.Text = acquaintance.Company;
 			JobTitleLabel.Text = acquaintance.JobTitle;
 
-			InvokeOnMainThread(async () => {
-				// use FFImageLoading library to asynchronously:
-				await ImageService
-					.Instance
-					.LoadUrl(acquaintance.SmallPhotoUrl, TimeSpan.FromHours(Settings.ImageCacheDurationHours))  // get the image from a URL
-					.LoadingPlaceholder("placeholderProfileImage.png")                                          // specify a placeholder image
-					.Transform(new CircleTransformation())                                                      // transform the image to a circle
-					.Error(e => System.Diagnostics.Debug.WriteLine(e.Message))
-					.IntoAsync(ProfilePhotoImageView);
-			});
+            InvokeOnMainThread(async () => {
+                // use FFImageLoading library to asynchronously:
+                try
+                {
+                    await ImageService
+                        .Instance
+                        .LoadUrl(acquaintance.SmallPhotoUrl, TimeSpan.FromHours(Settings.ImageCacheDurationHours))  // get the image from a URL
+                        .LoadingPlaceholder("placeholderProfileImage.png")                                          // specify a placeholder image
+                        .Transform(new CircleTransformation())                                                      // transform the image to a circle
+                        .Error(e => System.Diagnostics.Debug.WriteLine(e.Message))
+                        .IntoAsync(ProfilePhotoImageView);
+                }
+                catch
+                {
+
+                }
+            });
 		}
 	}
 }

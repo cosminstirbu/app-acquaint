@@ -247,18 +247,24 @@ namespace Acquaint.Native.Droid
 			// set OnClickListener of AcquaintanceRow
 			viewHolder.AcquaintanceRow.SetOnClickListener(this);
 
-			if (string.IsNullOrWhiteSpace(acquaintance.SmallPhotoUrl))
-				viewHolder.ProfilePhotoImageView.SetImageBitmap(null);
-			else
-				// use FFImageLoading library to asynchronously:
-				await ImageService
-					.Instance
-					.LoadUrl(acquaintance.SmallPhotoUrl, TimeSpan.FromHours(Settings.ImageCacheDurationHours))  // get the image from a URL
-					.LoadingPlaceholder("placeholderProfileImage.png")                                          // specify a placeholder image
-					.Transform(new CircleTransformation())                                                      // transform the image to a circle
-					.Error(e => System.Diagnostics.Debug.WriteLine(e.Message))
-					.IntoAsync(viewHolder.ProfilePhotoImageView);         
-		}
+            if (string.IsNullOrWhiteSpace(acquaintance.SmallPhotoUrl))
+                viewHolder.ProfilePhotoImageView.SetImageBitmap(null);
+            else
+                // use FFImageLoading library to asynchronously:
+                try
+                {
+                    await ImageService
+                        .Instance
+                        .LoadUrl(acquaintance.SmallPhotoUrl, TimeSpan.FromHours(Settings.ImageCacheDurationHours))  // get the image from a URL
+                        .LoadingPlaceholder("placeholderProfileImage.png", FFImageLoading.Work.ImageSource.CompiledResource)                                          // specify a placeholder image
+                        .Transform(new CircleTransformation())                                                      // transform the image to a circle
+                        .Error(e => System.Diagnostics.Debug.WriteLine(e.Message))
+                        .IntoAsync(viewHolder.ProfilePhotoImageView);
+                }
+                catch
+                {
+                }
+        }
 
 		public void OnClick(View view)
 		{

@@ -36,12 +36,14 @@ namespace Acquaint.Native.iOS
 
 			RegisterDependencies();
 
-			Settings.OnDataPartitionPhraseChanged += (sender, e) => {
+            Settings.OnDataPartitionPhraseChanged += (sender, e) => {
 				UpdateDataSourceIfNecessary();
 			};
 
+            Settings.DataPartitionPhrase = "UseLocalDataSource";
+
 #if ENABLE_TEST_CLOUD
-			Xamarin.Calabash.Start();
+            Xamarin.Calabash.Start();
 #endif
 
 			Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();

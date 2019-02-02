@@ -32,8 +32,10 @@ namespace Acquaint.Native.Droid
 				UpdateDataSourceIfNecessary();
 			};
 
-			// Azure Mobile Services initilization
-			Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
+            Settings.DataPartitionPhrase = "UseLocalDataSource";
+
+            // Azure Mobile Services initilization
+            Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
 
             base.OnCreate();
 

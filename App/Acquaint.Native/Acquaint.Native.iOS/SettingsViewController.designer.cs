@@ -1,58 +1,63 @@
 // WARNING
 //
-// This file has been generated automatically by Xamarin Studio to store outlets and
-// actions made in the UI designer. If it is removed, they will be lost.
-// Manual changes to this file may not be handled correctly.
+// This file has been generated automatically by Visual Studio from the outlets and
+// actions declared in your storyboard file.
+// Manual changes to this file will not be maintained.
 //
 using Foundation;
+using System;
 using System.CodeDom.Compiler;
 
 namespace Acquaint.Native.iOS
 {
-	[Register ("SettingsViewController")]
-	partial class SettingsViewController
-	{
-		[Outlet]
-		UIKit.UITextField BackendUrlEntry { get; set; }
+    [Register ("SettingsViewController")]
+    partial class SettingsViewController
+    {
+        [Outlet]
+        UIKit.UITextField BackendUrlEntry { get; set; }
 
-		[Outlet]
-		UIKit.UISwitch ClearImageCacheSwitch { get; set; }
 
-		[Outlet]
-		UIKit.UITextField DataPartitionPhraseEntry { get; set; }
+        [Outlet]
+        UIKit.UISwitch ClearImageCacheSwitch { get; set; }
 
-		[Outlet]
-		UIKit.UITextField ImageCacheDurationEntry { get; set; }
 
-		[Outlet]
-		UIKit.UISwitch ResetToDefaultsSwitch { get; set; }
-		
-		void ReleaseDesignerOutlets ()
-		{
-			if (DataPartitionPhraseEntry != null) {
-				DataPartitionPhraseEntry.Dispose ();
-				DataPartitionPhraseEntry = null;
-			}
+        [Outlet]
+        UIKit.UITextField DataPartitionPhraseEntry { get; set; }
 
-			if (BackendUrlEntry != null) {
-				BackendUrlEntry.Dispose ();
-				BackendUrlEntry = null;
-			}
 
-			if (ImageCacheDurationEntry != null) {
-				ImageCacheDurationEntry.Dispose ();
-				ImageCacheDurationEntry = null;
-			}
+        [Outlet]
+        UIKit.UITextField ImageCacheDurationEntry { get; set; }
 
-			if (ClearImageCacheSwitch != null) {
-				ClearImageCacheSwitch.Dispose ();
-				ClearImageCacheSwitch = null;
-			}
 
-			if (ResetToDefaultsSwitch != null) {
-				ResetToDefaultsSwitch.Dispose ();
-				ResetToDefaultsSwitch = null;
-			}
-		}
-	}
+        [Outlet]
+        UIKit.UISwitch ResetToDefaultsSwitch { get; set; }
+
+        void ReleaseDesignerOutlets ()
+        {
+            if (BackendUrlEntry != null) {
+                BackendUrlEntry.Dispose ();
+                BackendUrlEntry = null;
+            }
+
+            if (ClearImageCacheSwitch != null) {
+                ClearImageCacheSwitch.Dispose ();
+                ClearImageCacheSwitch = null;
+            }
+
+            if (DataPartitionPhraseEntry != null) {
+                DataPartitionPhraseEntry.Dispose ();
+                DataPartitionPhraseEntry = null;
+            }
+
+            if (ImageCacheDurationEntry != null) {
+                ImageCacheDurationEntry.Dispose ();
+                ImageCacheDurationEntry = null;
+            }
+
+            if (ResetToDefaultsSwitch != null) {
+                ResetToDefaultsSwitch.Dispose ();
+                ResetToDefaultsSwitch = null;
+            }
+        }
+    }
 }
